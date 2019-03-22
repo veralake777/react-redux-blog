@@ -1,8 +1,3 @@
-### To run:
-This command should run the bot locally so you can test it on the Discord server. 
-<br/>
-node bot.js
-
 ## Purpose of App
 The purpose of this app is to ensure that I **absolutely** understand:
 - the purpose of reducers
@@ -12,13 +7,13 @@ The purpose of this app is to ensure that I **absolutely** understand:
 *This app is not intended to showcase how pretty I can make it.* 
 
 ## Tools used
-[Node.js](https://nodejs.org/en/download/)
-[create-react-app](https://github.com/facebook/create-react-app)
-[React](https://reactjs.org/docs/getting-started.html)
-[Redux](https://redux.js.org/)
-[React-Redux](https://react-redux.js.org/)
-[Redux-Thunk](https://github.com/reduxjs/redux-thunk)
-[Visual Studio](https://code.visualstudio.com/download)
+[Node.js](https://nodejs.org/en/download/)<br/>
+[create-react-app](https://github.com/facebook/create-react-app)<br/>
+[React](https://reactjs.org/docs/getting-started.html)<br/>
+[Redux](https://redux.js.org/)<br/>
+[React-Redux](https://react-redux.js.org/)<br/>
+[Redux-Thunk](https://github.com/reduxjs/redux-thunk)<br/>
+[Visual Studio](https://code.visualstudio.com/download)<br/>
 [JSON Placeholder API](jsonplaceholer.typicode.com/)
 
 ## To run
