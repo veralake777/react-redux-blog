@@ -37,9 +37,9 @@ const createAction() = (x, y) => {
    }
 }
 ```
- Produces an... --> 
-2. Action --> Gets Fed to... --> 
-3. dispatch --> Forwards an action to... -->
+ **Produces an... -->** <br/>
+2. Action --> Gets Fed to... --> <br/>
+3. dispatch --> Forwards an action to... --><br/>
 4. Reducers -->
 ```
 const reducerName = (oldInfo = [], action) => {
@@ -56,7 +56,7 @@ const reducerName = (oldInfo = [], action) => {
    return oldInfo;
 }
 ```
-Creates new... --> 
+**Creates new...** --> <br/>
 5. State --> Wait until need to update state again (newAction)
 <hr />
 
