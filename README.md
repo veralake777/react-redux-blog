@@ -17,8 +17,8 @@ The purpose of this app is to ensure that I **absolutely** understand:
 [JSON Placeholder API](jsonplaceholer.typicode.com/)
 [smeantic-ui](https://cdnjs.com/libraries/semantic-ui)
 [Lodash Memoize](https://lodash.com/docs/4.14.11#memoize)
+Semantic-UI `https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css`
 
-- `https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css`
 ## To run
 npm install
 npm start
