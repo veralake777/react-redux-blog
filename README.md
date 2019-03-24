@@ -16,12 +16,38 @@ The purpose of this app is to ensure that I **absolutely** understand:
 [Visual Studio](https://code.visualstudio.com/download)<br/>
 [JSON Placeholder API](jsonplaceholer.typicode.com/)
 [smeantic-ui](https://cdnjs.com/libraries/semantic-ui)
+[Lodash Memoize](https://lodash.com/docs/4.14.11#memoize)
+
 - `https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css`
 ## To run
 npm install
 npm start
 
 ## Skills Learned
+### Components that are more reusable with Redux Store
+```
+// example: to pass ONE user to the component
+const mapStateToProps = (state, ownProps) => {
+    return { users: state.users.find(user => user.id === ownProps.userId)}
+}
+```
+- so not instead of passing all the users with the find() method directly in the component by 
+  accessing the redux stroe with this.props.user, the find() method is called within
+  mapStateToProps by passing in ownProps to access the store
+    - you then can access ONE user with const { user } = this.props; (this.props.user) within the component
+    - mapStateToProps is supposed to do work on the state + props!
+### Lodash Memoize
+- Us on action to prevent overfetching of data from API ==> optimization
+- _.memoization -> one way to solve overfetching, unique
+- _.uniq(._map) => fetch only unique keys from jsonPlaceholder --> like memoization
+- OR use _.chain:
+```
+ _.chain(getState.name)     // used to "chain on" additonal funcitons for a response
+    .map('userId')
+    .uniq()
+    .forEach(id => dispatch(fetchUser(id)))
+    .value()               // executes all the steps
+```
 ### Redux
 #### Redux Cycle
 1. To change state of App --> **Action Creator** -->
@@ -108,6 +134,7 @@ store.getState();
     - Because of new state object, redux/react-redux cause rerender
 
 #### Rules of Reducers
+- overview: `export default (state = [], action) => {switch (action.type) {case 'FETCH_N'...default: return state}};`
 - must return *any* value besides 'undefined'
 - produces 'state', or data to be used inside of app
     - using only previous state and the action (reducers are pure!)
@@ -172,6 +199,7 @@ const selectedItemReducer = (selectedItem = null, action) => {
 ### Redux-Thunk
 - middleware to help make requests in a redux application
 - most popular use *async funcitons*
+- allows the option for actions to return a function
 ```            
 dispatch -->   Action Creator Obj or Function
                             /\
@@ -206,7 +234,4 @@ export default thunk;
 | Actions must have a type property                | If Obj gets returns, must have a type                  |    
 | Actions can *optionally* have a 'payload'        | If an obj type gets returned, payload is optional      |
 
-#### Shorthand Syntax with Redux Thunk
-```
 
-```
