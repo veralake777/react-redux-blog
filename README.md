@@ -106,6 +106,67 @@ store.getState();
 - Fetched data shows in a component with new state in redux store, `mapStateToProps`
     - Some reducer sees the action, returns the data off the 'payload'
     - Because of new state object, redux/react-redux cause rerender
+
+#### Rules of Reducers
+- must return *any* value besides 'undefined'
+- produces 'state', or data to be used inside of app
+    - using only previous state and the action (reducers are pure!)
+- Must not return reach 'out of itself' to decide what value to return
+    - BAD `return document.querySelector(...)`
+    - BAD `return axios.get(...)`
+    - GOOD `return state + action`
+- Should not mutate its input 'state' argument
+    - mutate - change of contents of data
+    - BAD `state[0] = newValue`
+    - BAD `state.push(...)`
+    - this is not ok because of how data is stored in memory not the actual values
+    - Redux snippet from source code for combineReducer:
+    ```
+    let hasChanged = false
+    const nextState = {}
+    for (let i=0; i < finalReducerKeys.length; i++) {
+        const key = final ReducerKeys[i]
+        const reducer = finalReducers[key]
+        const previousStateForKey = state[key]
+        const nextStateForKey = reducer(previousStateForKey, action)
+        if (typeof nextStateForKey = 'undefined') {
+            const errorMessage = getUndefinedStateErrorMessage(key, action)
+            throw error Error(errorMessage)
+        }
+        nextState[key] = nextStateForKey
+
+        /*
+        * this is the part that gets the next state or not
+        * if this is still false then the function returns there is no change
+        * therefore returning old state
+        /*
+
+        hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+    }
+    return hasChanged ? nextState : state
+    ```
+- Syntax best practice:
+```
+// have default value for selectedItem to avoid undefined error
+const selectedItemReducer = (selectedItem = null, action) => {
+    // if correct return payload
+    if(action.type === 'SELECTED_ITEM') {
+        return action.payload
+    }
+
+    // else return deault value
+    return selectedItem
+}
+```
+|REDUCER                     | BAD                | GOOD                                             |
+|--------------------------- |:------------------:|:------------------------------------------------:|
+| Remove el from array       | state.pop()        | state.filter(element=>element!=='hi')            |
+| Adding an el to array      | state.push('hi)    | [...state, 'hi']                                 |
+| Replacing an el in array   | state[0]='hi'      | state.map(el=> el==='hi' ? 'bye':el)             |
+| Updating a property Obj    | state.name = "Sam" | {...state, name: 'Sam'}                          |
+| Adding a property to Obj   | state.age = 30     | {...state, age:30}                               |
+|Removing a property from Obj| delete state.name  | {...state, age:undefined} || _.omit(state, 'age')|
+
 ### React-Redux
 - integration between react and redux
 ### Redux-Thunk
@@ -120,6 +181,23 @@ dispatch -->   Action Creator Obj or Function
             to reducers           called with dispatch and getState -->
                                     manually dispatch fxn when request is finished -->
                                         New Action! --> back to top dispatch with returned request
+```
+**From Source Code**
+This is the function that redux thunk is using to help with async
+```
+function createThunkMiddleware(extraArgument) {
+    return ({ dispatch, getState }) => next => action {
+        if (typeof action === 'function') {
+            return action(dispatch, getState, extraArgument);
+        }
+        return next(action);
+    };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
 ```
 #### Rules
 | Normal Rules for Actions                         | Redux Thunk Rules                                      |
