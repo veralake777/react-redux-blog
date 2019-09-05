@@ -4,7 +4,7 @@ The purpose of this app is to ensure that I **absolutely** understand:
 - making API requests with Redux
 - the purpose of redux-thunk
 
-*This app is not intended to showcase how pretty I can make it.* 
+*This app is not intended to showcase UI/UX. It is a study to further my knowledge of how to implement react with redux.* 
 
 ## Tools used
 [Node.js](https://nodejs.org/en/download/)<br/>
